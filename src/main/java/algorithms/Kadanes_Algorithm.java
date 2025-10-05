@@ -4,54 +4,46 @@ import metrics.PerformanceTracker;
 
 public class Kadanes_Algorithm {
 
-    private final PerformanceTracker tracker = new PerformanceTracker();
+    public static class Result {
+        public int maxSum;
+        public int start;
+        public int end;
+
+        public Result(int maxSum, int start, int end) {
+            this.maxSum = maxSum;
+            this.start = start;
+            this.end = end;
+        }
+    }
 
     public Result findMaxSubarray(int[] arr) {
         if (arr == null || arr.length == 0)
-            throw new IllegalArgumentException("Array must not be null or empty");
-
-        tracker.reset();
-        tracker.startTimer();
+            throw new IllegalArgumentException("Array cannot be empty");
 
         int maxSoFar = arr[0];
         int maxEndingHere = arr[0];
         int start = 0, end = 0, tempStart = 0;
-        tracker.incrementArrayAccess(2);
 
         for (int i = 1; i < arr.length; i++) {
-            tracker.incrementArrayAccess(1);
-            tracker.incrementComparison(1);
+            PerformanceTracker.incrementArrayAccess(2);
+            int val = arr[i];
 
-            if (arr[i] > maxEndingHere + arr[i]) {
-                maxEndingHere = arr[i];
+            if (maxEndingHere + val < val) {
+                maxEndingHere = val;
                 tempStart = i;
             } else {
-                maxEndingHere += arr[i];
+                maxEndingHere += val;
             }
+            PerformanceTracker.incrementComparison(1);
 
-            tracker.incrementComparison(1);
             if (maxEndingHere > maxSoFar) {
                 maxSoFar = maxEndingHere;
                 start = tempStart;
                 end = i;
             }
+            PerformanceTracker.incrementComparison(1);
         }
 
-        tracker.stopTimer();
-        return new Result(maxSoFar, start, end, tracker);
-    }
-
-    public static class Result {
-        public final int maxSum;
-        public final int start;
-        public final int end;
-        public final PerformanceTracker tracker;
-
-        public Result(int sum, int s, int e, PerformanceTracker t) {
-            this.maxSum = sum;
-            this.start = s;
-            this.end = e;
-            this.tracker = t;
-        }
+        return new Result(maxSoFar, start, end);
     }
 }

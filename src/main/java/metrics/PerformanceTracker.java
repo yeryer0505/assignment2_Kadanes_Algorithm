@@ -6,8 +6,8 @@ public class PerformanceTracker {
     private static long startTime;
     private static long endTime;
 
-    public void incrementComparison(long n) { comparisons += n; }
-    public void incrementArrayAccess(long n) { arrayAccesses += n; }
+    public static void incrementComparison(long n) { comparisons += n; }
+    public static void incrementArrayAccess(long n) { arrayAccesses += n; }
 
     public static long getComparisons() { return comparisons; }
     public static long getArrayAccesses() { return arrayAccesses; }

@@ -52,4 +52,16 @@ public class Kadanes_AlgorithmTest {
 
         assertEquals(7, r.maxSum);
     }
+    @Test
+    public void testEmptyArray() {
+        Kadanes_Algorithm kadane = new Kadanes_Algorithm();
+        assertEquals(0, kadane.findMaxSubarraySum(new int[]{}));
+    }
+
+    @Test
+    public void testSingleElementArray() {
+        Kadanes_Algorithm kadane = new Kadanes_Algorithm();
+        assertEquals(5, kadane.findMaxSubarraySum(new int[]{5}));
+        assertEquals(-3, kadane.findMaxSubarraySum(new int[]{-3}));
+    }
 }

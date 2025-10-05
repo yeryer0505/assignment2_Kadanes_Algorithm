@@ -16,9 +16,30 @@ public class Kadanes_Algorithm {
         }
     }
 
+    public int findMaxSubarraySum(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            System.out.println("Warning: Empty array input");
+            return 0;
+        }
+
+        if (arr.length == 1) {
+            return arr[0];
+        }
+
+        int maxSoFar = arr[0];
+        int currentMax = arr[0];
+
+        for (int i = 1; i < arr.length; i++) {
+            currentMax = Math.max(arr[i], currentMax + arr[i]);
+            maxSoFar = Math.max(maxSoFar, currentMax);
+        }
+        return maxSoFar;
+    }
+
     public Result findMaxSubarray(int[] arr) {
-        if (arr == null || arr.length == 0)
+        if (arr == null || arr.length == 0){
             throw new IllegalArgumentException("Array cannot be empty");
+        }
 
         int maxSoFar = arr[0];
         int maxEndingHere = arr[0];
